@@ -1,0 +1,41 @@
+name: Java CI
+
+on:
+    push:
+    pull_request:
+        branches:
+            - master
+
+jobs:
+    Build:
+        strategy:
+            matrix:
+                jdkversion: [ 21 ]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-java@v4
+              with:
+                  distribution: 'temurin'
+                  java-version: ${{ matrix.jdkversion }}
+                  cache: 'maven'
+            - name: Build
+              run: mvn -V -B clean package --file pom.xml
+            - name: Rename Jar
+              run: |
+                mv residence-patch/target/HybridFix-Residence.jar ./HybridFix-Residence.jar
+            - name: Upload Residence patch
+              uses: actions/upload-artifact@v4
+              with:
+                  name: HybridFix-Residence artifact
+                  path: ./HybridFix-Residence.jar
+
+            - name: Release HybridFix-Patches
+              if: github.event_name != 'pull_request'
+              uses: marvinpinto/action-automatic-releases@master
+              with:
+                title: "HybridFix-Patches"
+                automatic_release_tag: "latest"
+                repo_token: "${{ secrets.GITHUB_TOKEN }}"
+                files: "./HybridFix-*.jar"
+                prerelease: false

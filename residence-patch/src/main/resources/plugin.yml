@@ -1,0 +1,7 @@
+name: HybridFix-Residence
+version: ${project.version}
+main: io.wdsj.hybridfix_patch.residence.HybridFixResidence
+api-version: '1.13'
+author: HaHaWTH
+depend:
+  - Residence
