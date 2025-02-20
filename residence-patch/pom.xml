@@ -92,12 +92,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.bstats</groupId>
-            <artifactId>bstats-velocity</artifactId>
-            <version>3.1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>com.github.thatsmusic99</groupId>
             <artifactId>ConfigurationMaster-API</artifactId>
             <version>v2.0.0-rc.2</version>
